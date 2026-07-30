@@ -1,7 +1,16 @@
 fastapi
-uvicorn
+uvicorn[standard]
 python-dotenv
+python-multipart
+
 pymongo
+requests
+pydantic
+
+openai-whisper
+pydub
+yt-dlp
+ffmpeg-python
 
 langchain
 langchain-core
@@ -15,5 +24,6 @@ sentence-transformers
 transformers
 torch
 
-python-multipart
-pydantic
+accelerate
+einops
+numpy
