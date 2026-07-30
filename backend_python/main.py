@@ -7,6 +7,7 @@ from core.summarizer import summarize, generate_title
 from core.extractor import extract_action_items, extract_key_decisions, extract_questions
 from core.rag_engine import build_rag_chain, ask_question, load_rag_chain
 from core.vector_store import delete_user_vector_store
+import os
 
 
 load_dotenv()
@@ -19,6 +20,10 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        os.getenv("REACT_URL"),
+        os.getenv("NODE_URL")
+
+        
     ],
     allow_credentials=True,
     allow_methods=["*"],
