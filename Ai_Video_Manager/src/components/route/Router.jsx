@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 const Home = React.lazy(() => import("../../pages/Home/Home"));
 const Login_page = React.lazy(() => import("../../pages/login_page/Login_page"));
 const History_page = React.lazy(() => import("../../pages/history_page/History_page"));
-const Save = React.lazy(() => import("../../pages/save/save"));
+const Save = React.lazy(() => import("../../pages/save/Save"));
 const VideoDetails = React.lazy(() => import("../../pages/video_details/VideoDetails"));
 const Profile = React.lazy(() => import("../../pages/profile/Profile"));
 const Not_found = React.lazy(() => import("../../pages/not_found/Not_found"));
