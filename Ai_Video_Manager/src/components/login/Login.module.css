@@ -1,0 +1,76 @@
+.loginContainer {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 420px;
+
+  background: #ffffff;
+  border-radius: 20px;
+
+  padding: 45px 35px;
+
+  text-align: center;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+
+  animation: fadeUp 0.5s ease;
+}
+
+.loginCard h1 {
+  margin: 0;
+  font-size: 32px;
+  color: #111827;
+  font-weight: 700;
+}
+
+.loginCard p {
+  margin-top: 12px;
+  margin-bottom: 35px;
+
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.googleButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 500px) {
+  .loginCard {
+    padding: 30px 20px;
+  }
+
+  .loginCard h1 {
+    font-size: 26px;
+  }
+
+  .loginCard p {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,402 @@
+.hero {
+  position: relative;
+  width: 92%;
+  max-width: 1250px;
+  margin: 05px auto;
+  padding: 90px 25px;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 28px;
+  isolation: isolate;
+
+  background: linear-gradient(
+    180deg,
+    #090b16 0%,
+    #070913 35%,
+    #05070f 100%
+  );
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.04),
+      0 25px 80px rgba(0,0,0,.55);
+}
+
+/* ===========================
+   GRID BACKGROUND
+=========================== */
+
+.grid{
+    position:absolute;
+    inset:0;
+
+    background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+
+    background-size:45px 45px;
+
+    opacity:.7;
+
+    mask-image:
+    radial-gradient(circle,#000 55%,transparent 100%);
+
+    z-index:-5;
+}
+
+/* ===========================
+   GLOW EFFECTS
+=========================== */
+
+.glow1{
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    left:-180px;
+    top:-180px;
+
+    border-radius:50%;
+
+    background:#4338ca;
+
+    filter:blur(190px);
+
+    opacity:.14;
+
+    animation:move1 9s ease-in-out infinite alternate;
+
+    z-index:-4;
+}
+
+.glow2{
+
+    position:absolute;
+
+    width:430px;
+    height:430px;
+
+    right:-180px;
+    bottom:-180px;
+
+    border-radius:50%;
+
+    background:#7c3aed;
+
+    filter:blur(180px);
+
+    opacity:.12;
+
+    animation:move2 10s ease-in-out infinite alternate;
+
+    z-index:-4;
+}
+
+.glow3{
+
+    position:absolute;
+
+    width:260px;
+    height:260px;
+
+    left:50%;
+    top:45%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    filter:blur(140px);
+
+    opacity:.08;
+
+    z-index:-4;
+}
+
+@keyframes move1{
+
+    to{
+        transform:translate(80px,40px);
+    }
+
+}
+
+@keyframes move2{
+
+    to{
+        transform:translate(-70px,-35px);
+    }
+
+}
+
+/* ===========================
+   BADGE
+=========================== */
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:11px 22px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    color:#d8b4fe;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    box-shadow:
+    0 0 25px rgba(124,58,237,.15);
+
+}
+
+/* ===========================
+   TITLE
+=========================== */
+
+.title{
+
+    margin-top:35px;
+
+    font-size:clamp(3rem,7vw,6rem);
+
+    font-weight:900;
+
+    line-height:1;
+
+    letter-spacing:-3px;
+
+    color:white;
+
+}
+
+.title span{
+
+    background:linear-gradient(
+    90deg,
+    #60a5fa,
+    #818cf8,
+    #8b5cf6,
+    #d946ef
+    );
+
+    background-size:300%;
+
+    animation:gradient 8s linear infinite;
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+@keyframes gradient{
+
+    100%{
+        background-position:300%;
+    }
+
+}
+
+/* ===========================
+   DESCRIPTION
+=========================== */
+
+.description{
+
+    width:min(760px,100%);
+
+    margin:35px auto 0;
+
+    color:#94a3b8;
+
+    font-size:1.18rem;
+
+    line-height:1.9;
+
+}
+
+/* ===========================
+   FLOATING LIGHTS
+=========================== */
+
+.circle1,
+.circle2,
+.circle3{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    animation:float 6s ease-in-out infinite;
+
+}
+
+.circle1{
+
+    width:14px;
+    height:14px;
+
+    background:#8b5cf6;
+
+    right:130px;
+    top:140px;
+
+    box-shadow:0 0 20px #8b5cf6;
+}
+
+.circle2{
+
+    width:10px;
+    height:10px;
+
+    background:#3b82f6;
+
+    left:120px;
+    bottom:120px;
+
+    animation-delay:2s;
+
+    box-shadow:0 0 18px #3b82f6;
+}
+
+.circle3{
+
+    width:8px;
+    height:8px;
+
+    background:#06b6d4;
+
+    top:90px;
+    left:35%;
+
+    animation-delay:1s;
+
+    box-shadow:0 0 16px #06b6d4;
+}
+
+@keyframes float{
+
+    50%{
+        transform:translateY(-18px);
+    }
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+.hero{
+
+padding:70px 20px;
+
+}
+
+.title{
+
+font-size:4rem;
+
+}
+
+.description{
+
+font-size:1.05rem;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.hero{
+
+padding:55px 18px;
+
+margin-top:35px;
+
+}
+
+.title{
+
+font-size:3rem;
+
+letter-spacing:-1px;
+
+}
+
+.badge{
+
+font-size:.85rem;
+
+padding:9px 18px;
+
+}
+
+.description{
+
+font-size:1rem;
+
+line-height:1.7;
+
+}
+
+.circle1,
+.circle2,
+.circle3{
+
+display:none;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.hero{
+
+padding:40px 15px;
+
+border-radius:20px;
+
+}
+
+.title{
+
+font-size:2.2rem;
+
+}
+
+.badge{
+
+font-size:.78rem;
+
+padding:8px 15px;
+
+}
+
+.description{
+
+font-size:.95rem;
+
+}
+
+}
