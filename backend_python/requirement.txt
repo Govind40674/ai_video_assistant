@@ -8,8 +8,6 @@ dnspython==2.8.0
 
 requests==2.34.2
 
-
-
 langchain==1.3.14
 langchain-core==1.5.2
 langchain-community==0.4.2
@@ -24,5 +22,9 @@ numpy==2.4.6
 accelerate==1.14.0
 einops==0.8.2
 
+pydub==0.25.1
+tiktoken==0.12.0
 
-youtube-transcript-api
+openai-whisper
+
+
