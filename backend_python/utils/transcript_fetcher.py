@@ -3,9 +3,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 
 
 def extract_video_id(url: str):
-    pattern = (
-        r"(?:v=|\/)([0-9A-Za-z_-]{11})"
-    )
+    pattern = r"(?:v=|\/)([0-9A-Za-z_-]{11})"
 
     match = re.search(pattern, url)
 
@@ -16,13 +14,14 @@ def extract_video_id(url: str):
 
 
 def get_transcript(url: str):
-
     video_id = extract_video_id(url)
 
-    transcript = YouTubeTranscriptApi.get_transcript(video_id)
+    ytt_api = YouTubeTranscriptApi()
+
+    transcript = ytt_api.fetch(video_id)
 
     text = " ".join(
-        chunk["text"]
+        chunk.text
         for chunk in transcript
     )
 
