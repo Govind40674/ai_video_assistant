@@ -10,6 +10,7 @@ function Main_input() {
   const currentUser = user ? JSON.parse(user) : null;
 
   const [loading, setLoading] = useState(false);
+  const [asking, setAsking] = useState(false);
 
   const [result, setResult] = useState(null);
 
@@ -109,6 +110,9 @@ function Main_input() {
 
     if (!question.trim()) return;
 
+    setAsking(true);
+    setError("");
+
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_URL_PYTHON}/signed/ask_question`,
@@ -134,7 +138,14 @@ function Main_input() {
       );
     } catch (err) {
       console.error(err);
+
+      if (err.response) {
+        console.log(err.response.data);
+      }
+
       setError("Something went wrong.");
+    } finally {
+      setAsking(false);
     }
   };
 
@@ -194,6 +205,7 @@ function Main_input() {
             type="text"
             placeholder="Ask a question..."
             value={question}
+            disabled={asking}
             onChange={(e) => setQuestion(e.target.value)}
             className={styles.input}
           />
@@ -201,8 +213,16 @@ function Main_input() {
           <button
             type="submit"
             className={styles.button}
+            disabled={asking || !question.trim()}
           >
-            Ask
+            {asking ? (
+              <>
+                <span className={styles.loader}></span>
+                Asking...
+              </>
+            ) : (
+              "Ask"
+            )}
           </button>
 
           {answers && (
