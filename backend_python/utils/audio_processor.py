@@ -10,12 +10,21 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 def create_cookie_file():
     """
-    Creates cookies.txt from the YOUTUBE_COOKIES
-    environment variable.
+    Creates cookies.txt from Render Environment Variable
     """
+
     cookies = os.getenv("YOUTUBE_COOKIES")
 
-    if not cookies:
+    print("=" * 60)
+    print("Checking YouTube Cookies...")
+
+    if cookies:
+        print("YOUTUBE_COOKIES found.")
+        print("Cookie Length:", len(cookies))
+        print("Cookie Preview:")
+        print(cookies[:100])
+    else:
+        print("YOUTUBE_COOKIES NOT FOUND")
         return None
 
     cookie_path = os.path.join(DOWNLOAD_DIR, "cookies.txt")
@@ -23,10 +32,14 @@ def create_cookie_file():
     with open(cookie_path, "w", encoding="utf-8") as f:
         f.write(cookies)
 
+    print("Cookie file created:", cookie_path)
+    print("Cookie file exists:", os.path.exists(cookie_path))
+    print("=" * 60)
+
     return cookie_path
 
 
-def download_youtube_audio(url: str) -> str:
+def download_youtube_audio(url: str):
 
     output_path = os.path.join(
         DOWNLOAD_DIR,
@@ -56,12 +69,6 @@ def download_youtube_audio(url: str) -> str:
             )
         },
 
-        "extractor_args": {
-            "youtube": {
-                "player_client": ["android"]
-            }
-        },
-
         "postprocessors": [
             {
                 "key": "FFmpegExtractAudio",
@@ -70,6 +77,15 @@ def download_youtube_audio(url: str) -> str:
             }
         ],
     }
+
+    print("=" * 60)
+    print("Downloading:", url)
+    print("Using Cookie File:", cookie_file)
+    print(
+        "Cookie Exists:",
+        os.path.exists(cookie_file) if cookie_file else False
+    )
+    print("=" * 60)
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -86,16 +102,20 @@ def download_youtube_audio(url: str) -> str:
                 + ".wav"
             )
 
+            print("Download Successful")
+            print("Saved as:", filename)
+
             return filename
 
     except DownloadError as e:
-        raise Exception(
-            f"Unable to download YouTube video: {e}"
-        )
+        print("yt-dlp ERROR:")
+        print(e)
+        raise Exception(f"Unable to download YouTube video: {e}")
 
     finally:
         if cookie_file and os.path.exists(cookie_file):
             os.remove(cookie_file)
+            print("Cookie file deleted")
 
 
 def convert_to_wav(input_path: str):
@@ -155,15 +175,15 @@ def process_input(source: str):
         print("Detected YouTube URL")
         wav_path = download_youtube_audio(source)
     else:
-        print("Detected local file")
+        print("Detected Local File")
         wav_path = convert_to_wav(source)
 
-    print("Chunking audio...")
+    print("Chunking Audio...")
 
     try:
         chunks = chunk_audio(wav_path)
 
-        print(f"Created {len(chunks)} chunks.")
+        print(f"Created {len(chunks)} chunk(s).")
 
         return chunks
 
@@ -171,5 +191,6 @@ def process_input(source: str):
         if os.path.exists(wav_path):
             try:
                 os.remove(wav_path)
+                print("Original audio deleted.")
             except Exception as e:
                 print(e)
