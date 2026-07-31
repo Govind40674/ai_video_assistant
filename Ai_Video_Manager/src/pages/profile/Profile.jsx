@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/footer/Footer";
 
 function Profile() {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ function Profile() {
   }
 
   return (
+    <>
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.menuContainer}>
@@ -157,6 +159,8 @@ function Profile() {
         </div>
       )}
     </div>
+    <Footer/>
+    </>
   );
 }
 
