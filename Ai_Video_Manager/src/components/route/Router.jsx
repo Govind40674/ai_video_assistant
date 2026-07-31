@@ -71,7 +71,7 @@ function Router() {
             />
 
             <Route
-              path="/video/:id"
+              path="/save/:id"
               element={
                 <ProtectedRoute>
                   <VideoDetails />
