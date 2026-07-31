@@ -41,7 +41,7 @@ function Header() {
           </button>
         ) : (
           <button
-            className={styles.header__button}
+            className={styles.profileButton}
             onClick={() => navigate("/profile")}
           >
             <img src={JSON.parse(user).picture} alt="profile" />
