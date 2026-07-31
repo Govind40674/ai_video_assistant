@@ -132,7 +132,7 @@ function Main_input() {
         {
           user_email: currentUser.email,
           title,
-          questions: question,
+          question,
           answer: response.data.answer,
         }
       );

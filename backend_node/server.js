@@ -43,7 +43,7 @@ app.use("/api/auth", authRoutes);
 app.use("/", videoRoutes);
 app.use("/", historyRoutes);
 app.use("/", profileRoutes);
-// app.use("/youtube", youtubeRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Backend Running");
