@@ -25,7 +25,7 @@ function VideoDetails() {
   const loadVideo = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_URL_NODEL}/video/${id}`
+        `${import.meta.env.VITE_URL_NODEL}/save_video_data/details/${id}`
       );
 
       setVideo(res.data.video);
