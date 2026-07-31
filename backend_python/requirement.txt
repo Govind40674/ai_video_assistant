@@ -27,3 +27,6 @@ sentence-transformers==5.6.1
 numpy==2.4.6
 accelerate==1.14.0
 einops==0.8.2
+
+
+youtube-transcript-api

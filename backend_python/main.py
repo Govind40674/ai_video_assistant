@@ -2,8 +2,10 @@ from fastapi import FastAPI, HTTPException
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
-from utils.audio_processor import process_input
-from core.transcriber import transcribe_all
+# from utils.audio_processor import process_input
+# from core.transcriber import transcribe_all
+
+from utils.transcript_fetcher import get_transcript
 from core.summarizer import summarize, generate_title
 from core.extractor import (
     extract_action_items,
@@ -49,9 +51,10 @@ async def process_video(user_email: str, url: str):
         print("Video URL:", url)
         print("User:", user_email)
 
-        processed_audio_path = process_input(url)
+        # processed_audio_path = process_input(url)
 
-        transcript = transcribe_all(processed_audio_path)
+        # transcript = transcribe_all(processed_audio_path)
+        transcript = get_transcript(url)
 
         title = generate_title(transcript)
 
@@ -116,9 +119,10 @@ async def ask_question_endpoint(
 @app.get("/unsigned/process_video")
 async def process_unsigned(url: str):
     try:
-        processed_audio_path = process_input(url)
+        # processed_audio_path = process_input(url)
 
-        transcript = transcribe_all(processed_audio_path)
+        # transcript = transcribe_all(processed_audio_path)
+        transcript = get_transcript(url)
 
         title = generate_title(transcript)
 
