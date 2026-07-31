@@ -48,35 +48,75 @@ def download_youtube_audio(url: str):
 
     cookie_file = create_cookie_file()
 
+    # ydl_opts = {
+    #     "format": "bestaudio/best",
+
+    #     "outtmpl": output_path,
+
+    #     "cookiefile": cookie_file,
+
+    #     "noplaylist": True,
+    #     "overwrites": True,
+
+    #     "quiet": False,
+    #     "no_warnings": False,
+
+    #     "http_headers": {
+    #         "User-Agent": (
+    #             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    #             "AppleWebKit/537.36 (KHTML, like Gecko) "
+    #             "Chrome/137.0.0.0 Safari/537.36"
+    #         )
+    #     },
+
+    #     "postprocessors": [
+    #         {
+    #             "key": "FFmpegExtractAudio",
+    #             "preferredcodec": "wav",
+    #             "preferredquality": "192",
+    #         }
+    #     ],
+    # }
+
     ydl_opts = {
-        "format": "bestaudio/best",
+    "format": "bestaudio",
 
-        "outtmpl": output_path,
+    "outtmpl": output_path,
 
-        "cookiefile": cookie_file,
+    "cookiefile": cookie_file,
 
-        "noplaylist": True,
-        "overwrites": True,
+    "quiet": False,
+    "no_warnings": False,
 
-        "quiet": False,
-        "no_warnings": False,
+    "noplaylist": True,
+    "overwrites": True,
 
-        "http_headers": {
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/137.0.0.0 Safari/537.36"
-            )
-        },
+    "http_headers": {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/137.0.0.0 Safari/537.36"
+        )
+    },
 
-        "postprocessors": [
-            {
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "wav",
-                "preferredquality": "192",
-            }
-        ],
-    }
+    "extractor_args": {
+        "youtube": {
+            "player_client": [
+                "web",
+                "android",
+                "tv"
+            ]
+        }
+    },
+
+    "postprocessors": [
+        {
+            "key": "FFmpegExtractAudio",
+            "preferredcodec": "wav",
+            "preferredquality": "192",
+        }
+    ],
+}
 
     print("=" * 60)
     print("Downloading:", url)
