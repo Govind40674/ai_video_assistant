@@ -8,6 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import videoRoutes from "./routes/videoRoutes.js";
 import historyRoutes from "./routes/historyRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
+// import youtubeRoutes from "./routes/youtubeRoutes.js";
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use("/api/auth", authRoutes);
 app.use("/", videoRoutes);
 app.use("/", historyRoutes);
 app.use("/", profileRoutes);
+// app.use("/youtube", youtubeRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend Running");

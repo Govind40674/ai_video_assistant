@@ -3,7 +3,7 @@ import styles from "./Main_input.module.css";
 import axios from "axios";
 
 function Main_input() {
-  const [url, setUrl] = useState("");
+  const [file, setFile] = useState(null);
   const [error, setError] = useState("");
 
   const user = localStorage.getItem("user");
@@ -22,52 +22,47 @@ function Main_input() {
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(null);
 
-  const isValidUrl = (value) => {
-    try {
-      const parsed = new URL(value);
-
-      return (
-        parsed.protocol === "http:" ||
-        parsed.protocol === "https:"
-      );
-    } catch {
-      return false;
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!isValidUrl(url)) {
-      setError("Please enter a valid URL.");
+    if (!file) {
+      setError("Please select a video or audio file.");
       return;
     }
 
     setError("");
     setLoading(true);
+    setResult(null);
+    setAnswers(null);
 
     try {
+      const formData = new FormData();
+
+      formData.append("file", file);
+
+      if (currentUser) {
+        formData.append("user_email", currentUser.email);
+      }
+
       let response;
 
       if (!currentUser) {
-        setResult(null);
-        response = await axios.get(
+        response = await axios.post(
           `${import.meta.env.VITE_URL_PYTHON}/unsigned/process_video`,
+          formData,
           {
-            params: {
-              url,
+            headers: {
+              "Content-Type": "multipart/form-data",
             },
           }
         );
       } else {
-        setResult(null);
-        setAnswers(null);
-        response = await axios.get(
+        response = await axios.post(
           `${import.meta.env.VITE_URL_PYTHON}/signed/process_video`,
+          formData,
           {
-            params: {
-              user_email: currentUser.email,
-              url,
+            headers: {
+              "Content-Type": "multipart/form-data",
             },
           }
         );
@@ -81,20 +76,19 @@ function Main_input() {
       setKeyDecisions(response.data.key_decisions);
       setUnsolvedQuestions(response.data.questions);
 
-      if(currentUser && result){
-
-      const savedData = await axios.post(
-        `${import.meta.env.VITE_URL_NODEL}/save_video_data`,
-        {
-          user_email: currentUser.email,
-          title,
-          summary,
-          action_items: actionItems,
-          key_decisions: keyDecisions,
-          questions: unsolvedQuestions,
-        }
-      );
-    }
+      if (currentUser) {
+        await axios.post(
+          `${import.meta.env.VITE_URL_NODEL}/save_video_data`,
+          {
+            user_email: currentUser.email,
+            title: response.data.title,
+            summary: response.data.summary,
+            action_items: response.data.action_items,
+            key_decisions: response.data.key_decisions,
+            questions: response.data.questions,
+          }
+        );
+      }
 
       console.log(response.data);
     } catch (err) {
@@ -128,13 +122,12 @@ function Main_input() {
       );
 
       setAnswers(response.data.answer);
-      const savedhistory= await axios.post(
+
+      await axios.post(
         `${import.meta.env.VITE_URL_NODEL}/save_video_data/history`,
         {
           user_email: currentUser.email,
           title,
-          
-  
           questions: question,
           answer: response.data.answer,
         }
@@ -149,11 +142,10 @@ function Main_input() {
     <div>
       <form onSubmit={handleSubmit} className={styles.container}>
         <input
-          type="url"
-          placeholder="Paste video URL..."
-          value={url}
+          type="file"
+          accept="video/*,audio/*"
           disabled={loading}
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={(e) => setFile(e.target.files[0])}
           className={styles.input}
           required
         />
@@ -169,7 +161,7 @@ function Main_input() {
               Processing...
             </>
           ) : (
-            "Submit"
+            "Upload & Process"
           )}
         </button>
       </form>
