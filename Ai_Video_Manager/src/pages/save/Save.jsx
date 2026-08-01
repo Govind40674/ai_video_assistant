@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Save.module.css";
+import Footer from "../../components/footer/Footer";
 
 function Save() {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ function Save() {
   }
 
   return (
+    <>
     <div className={styles.container}>
       <h1 className={styles.heading}>
         Saved Videos
@@ -80,6 +82,8 @@ function Save() {
         </div>
       )}
     </div>
+    <Footer/>
+    </>
   );
 }
 
